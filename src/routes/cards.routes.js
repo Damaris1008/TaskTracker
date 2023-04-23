@@ -36,6 +36,7 @@ router.post("/cards/add", async (req, res) => {
     } else {
         const newCard = new Card({ title, description, status });
         await newCard.save();
+        req.flash("success_msg", "Tarjeta agregada correctamente");
         res.redirect("/cards");
     }
 });
@@ -43,14 +44,43 @@ router.post("/cards/add", async (req, res) => {
 // Get form for updating a card
 router.get("/cards/edit/:id", async (req, res) => {
     const card = await Card.findById(req.params.id).lean();
-    res.render("cards/edit-card", { card });
+    const id = req.params.id;
+    const { title, description, status } = card;
+    res.render("cards/edit-card", { id, title, description, status });
 });
 
 // Update a card
 router.put("/cards/edit/:id", async (req, res) => {
-    const { title, description, status } = req.body;
-    await Card.findByIdAndUpdate(req.params.id, { title, description, status });
+    var { title, description, status } = req.body;
+    const id = req.params.id;
+    const errors = [];
+    if (!title) {
+        errors.push({ text: "Debe introducir un título" });
+    }
+    if (!status) {
+        errors.push({ text: "Debe asignar un estado" });
+    }
+    if (errors.length > 0) {
+        res.render("cards/edit-card", {
+            errors,
+            id,
+            title,
+            description,
+            status
+        });
+    } else {
+        await Card.findByIdAndUpdate(req.params.id, { title, description, status });
+        req.flash("success_msg", "Tarjeta actualizada correctamente");
+        res.redirect("/cards");
+    }
+});
+
+// Delete a card
+router.delete("/cards/delete/:id", async (req, res) => {
+    await Card.findByIdAndDelete(req.params.id);
+    req.flash("success_msg", "Tarjeta eliminada correctamente");
     res.redirect("/cards");
 });
+
 
 export default router;

@@ -9,6 +9,7 @@ import path from "path";
 import morgan from "morgan";
 import methodOverride from "method-override";
 import session from "express-session";
+import flash from "connect-flash";
 
 const app = express();
 
@@ -25,7 +26,6 @@ app.engine(".hbs", exphbs.engine);
 app.set("view engine", ".hbs");
 
 // Middlewares
-
 app.use(express.urlencoded( {extended: false} ));
 app.use(methodOverride("_method"));
 app.use(morgan("dev"));
@@ -34,6 +34,14 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+app.use(flash());
+
+// Global variables
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next();
+});
 
 // Static files
 app.use(express.static(path.join(__dirname, "public")));
