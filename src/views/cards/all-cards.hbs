@@ -15,6 +15,12 @@
                     <strong>Estado: </strong>
                     {{status}}
                 </p>
+                {{#if priority}}
+                <p class="card-text">
+                    <strong>Prioridad: </strong>
+                    {{priority}}
+                </p>
+                {{/if}}
                 <form action="/cards/delete/{{_id}}?_method=DELETE" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
 
@@ -34,7 +40,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            Esta acción no se puede deshacer, ¿está seguro de que desea eliminar esta tarjeta?        
+                            Esta acción no se puede deshacer, ¿está seguro de que desea eliminar esta tarea?        
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancelar </button>
@@ -52,7 +58,7 @@
     <div class="card mx-auto">
         <div class="card-body">
             <p class="lead">
-                Aún no hay tarjetas creadas
+                Aún no hay tareas creadas
             </p>
             <a href="/cards/add" class="btn btn-success btn-block">¡Crea una!</a>
         </div>
