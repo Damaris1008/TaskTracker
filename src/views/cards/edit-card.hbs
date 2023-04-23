@@ -1,0 +1,29 @@
+<div class="col-md-4 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            <h3>Editar tarjeta</h3>
+        </div>
+        <div class="card-body">
+            <form action="/cards/edit/{{card._id}}?_method=PUT" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <div class="form-group">
+                    <input type="text" name="title" class="form-control" value="{{card.title}}"
+                        placeholder="Introduzca un título para su tarjeta..." autofocus>
+                </div>
+                <div class="form-group">
+                    <textarea type="text" name="description" class="form-control" rows=5
+                        placeholder="Introduzca si lo desea una descripción detallada para su tarjeta...">{{card.description}}</textarea>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="status" class="form-control" value="{{card.status}}"
+                        placeholder="Describa el estado de esta tarjeta...">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">
+                        Confirmar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
