@@ -1,61 +1,57 @@
 body {
-    /*background: #A1FFCE;  
-    background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE); 
-    background: linear-gradient(to right, #FAFFD1, #A1FFCE);*/
-    background:white;
-    /*background: #457fca; 
-    background: -webkit-linear-gradient(to right, #5691c8, #457fca);  
-    background: linear-gradient(to right, #5691c8, #457fca); */ 
-    /*background: #00c6ff;  
-    background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  
-    background: linear-gradient(to right, #0072ff, #00c6ff); */
-    
-    /*background: #1D976C;  
-    background: -webkit-linear-gradient(to right, #93F9B9, #1D976C); 
-    background: linear-gradient(to right, #93F9B9, #1D976C); 
-*/
+    background:rgb(217, 217, 217);
 }
 
 .task{
     background-color: white !important;
-    border-width:10px !important    ;
+    border-width:10px !important;
     border:solid #0000;
 }
 
 .task:hover{
-    background-color: #ebe765 !important;
+    background-color: #ebebeb !important;
     cursor:pointer;
 }
 
 .task-details-header{
-    background-color: #ebe765 !important;
-    color: black !important;
+    background-color: #ffffff !important;
+    border-width:10px !important    ;
+    border:solid #0000;
 }
 
 .task-details-body{
-    background-color: #ffffb6 !important;
+    background-color: #f7f7f7;
 }
 
+.modal-content {
+    background-color: #343A40;
+}
 .modal-header{
-    background-color: #343A40 !important;
+    background-color: #343A40;
     color:white;
+    border:0;
 }
 
 .modal-body{
-    background: #A1FFCE !important;
-    background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE)  !important;
-    background: linear-gradient(to right, #FAFFD1, #A1FFCE)  !important;
+    background: rgb(217, 217, 217);
+}
+
+.delete-modal-body{
+    background: rgb(255, 255, 255);
+}
+
+.delete-modal-footer{
+    background: rgb(255, 255, 255) !important;
 }
 
 .modal-footer{
-    background: #A1FFCE !important;
-    background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE)  !important;
-    background: linear-gradient(to right, #FAFFD1, #A1FFCE)  !important;
+    background: rgb(217, 217, 217);
+    border:0;
 }
 
 .status-cards-outer-div{
-    height: 600px;
-    max-height:600px; 
+    height: 580px;
+    max-height:580px; 
 }
 .status-card-inner-div{
     height: 100%;
@@ -121,15 +117,10 @@ body {
 
 .form-task-header{
 
-    background-color: #ebe765 !important;
+    background-color: #343A40 !important;
+    color:white;
 }
 
 .form-task-body{
-    background-color: #ffffb6 !important;
-}
-
-.btn-primary{
-    background-color: #ebe765 !important;
-    border-color: #ebe765 !important;
-    color: black !important;
+    background-color: #ffffff !important;
 }

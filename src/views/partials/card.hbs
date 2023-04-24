@@ -1,7 +1,7 @@
 <div class="mb-3">
 
     <div class="card border-0 " data-toggle="modal" data-target="#detailsModal-{{_id}}">
-        <div class="card-body task d-flex rounded task" 
+        <div class="card-body task d-flex rounded" 
         {{#if priority}}
             {{#ifEquals priority "Baja"}}
             style="border-left-color:rgb(119, 209, 223) !important"
@@ -38,10 +38,10 @@
                             <span class="close-icon"aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body delete-modal-body">
                         Esta acción no se puede deshacer, ¿está seguro de que desea eliminar esta tarea?
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer delete-modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancelar </button>
                         <button type="submit" class="btn btn-danger"> Confirmar </button>
                     </div>
@@ -63,7 +63,20 @@
                 </div>
                 <div class="modal-body">
                     <div class="card border-0">
-                        <div class="card-header pt-4 task-details-header d-flex">
+                        <div class="card-header pt-4 task-details-header d-flex" 
+                        {{#if priority}}
+                            {{#ifEquals priority "Baja"}}
+                            style="border-left-color:rgb(119, 209, 223) !important"
+                            {{/ifEquals}}
+                            {{#ifEquals priority "Media"}}
+                            style="border-left-color:rgb(253, 243, 132) !important"
+                            {{/ifEquals}}
+                            {{#ifEquals priority "Alta"}}
+                            style="border-left-color:rgb(249, 103, 103) !important"
+                            {{/ifEquals}}
+                        {{else}}
+                            style="border-left-color:rgb(200, 200, 200) !important"
+                        {{/if}}>
                             <h5 class="flex-grow-1">{{title}}</h5>
                             <a href="/cards/edit/{{_id}}">
                                 <i class="fas fa-edit fa-lg edit-or-delete-icon"></i>
@@ -73,7 +86,7 @@
                             </a>
              
                         </div>
-                        <div class="card-body task-details-body">
+                        <div class="card-body task-details-body rounded">
                             <table class="table table-borderless w-auto">
                                 <tbody>
                                     <tr>
