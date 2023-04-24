@@ -58,6 +58,8 @@
     {{/if}}
     
 </div>
-<div class="d-flex justify-content-center p-3" >       
-        <a href="/cards/add" class="btn btn-dark" style="width:180px !important;">Crear una tarea</a>
-</div>
+{{#if cards}}
+    <div class="d-flex justify-content-center p-3" >       
+            <a href="/cards/add" class="btn btn-dark" style="width:180px !important;">Crear una tarea</a>
+    </div>
+{{/if}}

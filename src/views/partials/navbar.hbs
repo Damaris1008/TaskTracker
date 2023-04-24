@@ -12,19 +12,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto">
-            <a class="nav-item nav-link" href="/users/signup">Registrarse</a>
-            <a class="nav-item nav-link" href="/users/signin">Iniciar sesión</a>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Mi perfil
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/cards">Mis tareas</a>
-                    <a class="dropdown-item" href="/cards/add">Crear tarea</a>
-                    <a class="dropdown-item" href="/users/logout">Cerrar sesión</a>
-                </div>
-            </li>
+            {{#if user}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Mi perfil
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/cards">Mis tareas</a>
+                        <a class="dropdown-item" href="/cards/add">Crear tarea</a>
+                        <a class="dropdown-item" href="/users/logout">Cerrar sesión</a>
+                    </div>
+                </li>
+            {{else}}
+                <a class="nav-item nav-link" href="/users/signup">Registrarse</a>
+                <a class="nav-item nav-link" href="/users/signin">Iniciar sesión</a>
+            {{/if}}
         </div>
     </div>
     </div>

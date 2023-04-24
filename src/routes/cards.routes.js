@@ -2,22 +2,23 @@ import { Router } from "express";
 import Card from "../models/Card";
 
 const router = Router();
+const { isAuthenticated } = require('../helpers/auth');
 
 //APP
 
 // Get all cards
-router.get("/cards", async (req,  res) => {
-    const cards = await Card.find().sort({createdAt: 'desc'}).lean();
+router.get("/cards", isAuthenticated, async (req,  res) => {
+    const cards = await Card.find({user: req.user.id}).sort({createdAt: 'desc'}).lean();
     res.render("cards/all-cards", { cards });
 });
 
 // Get form for adding a card
-router.get("/cards/add", (req, res) => {
+router.get("/cards/add", isAuthenticated, (req, res) => {
     res.render("cards/new-card");
 });
 
 // Post a new card
-router.post("/cards/add", async (req, res) => {
+router.post("/cards/add", isAuthenticated, async (req, res) => {
 
     var { title, description, status, priority } = req.body;
     const errors = [];
@@ -47,6 +48,7 @@ router.post("/cards/add", async (req, res) => {
         });
     } else {
         const newCard = new Card({ title, description, status, priority });
+        newCard.user = req.user.id;
         await newCard.save();
         req.flash("success_msg", "Tarea agregada correctamente.");
         res.redirect("/cards");
@@ -54,7 +56,7 @@ router.post("/cards/add", async (req, res) => {
 });
 
 // Get form for updating a card
-router.get("/cards/edit/:id", async (req, res) => {
+router.get("/cards/edit/:id", isAuthenticated, async (req, res) => {
     const card = await Card.findById(req.params.id).lean();
     const id = req.params.id;
     const { title, description, status, priority } = card;
@@ -62,7 +64,7 @@ router.get("/cards/edit/:id", async (req, res) => {
 });
 
 // Update a card
-router.put("/cards/edit/:id", async (req, res) => {
+router.put("/cards/edit/:id", isAuthenticated, async (req, res) => {
     var { title, description, status, priority } = req.body;
     const id = req.params.id;
     const errors = [];
@@ -101,7 +103,7 @@ router.put("/cards/edit/:id", async (req, res) => {
 });
 
 // Delete a card
-router.delete("/cards/delete/:id", async (req, res) => {
+router.delete("/cards/delete/:id", isAuthenticated, async (req, res) => {
     await Card.findByIdAndDelete(req.params.id);
     req.flash("success_msg", "Tarea eliminada correctamente.");
     res.redirect("/cards");
@@ -110,7 +112,7 @@ router.delete("/cards/delete/:id", async (req, res) => {
 // API
 
 // Get all cards
-router.get("/api/cards", async (req,  res) => {
+router.get("/api/cards", isAuthenticated, async (req,  res) => {
     const cards = await Card.find().sort({createdAt: 'desc'}).lean();
     res.status(200).json(cards);
 });
@@ -118,7 +120,7 @@ router.get("/api/cards", async (req,  res) => {
 
 // Post a new card
 
-router.post("/api/cards/add", async (req, res) => {
+router.post("/api/cards/add", isAuthenticated, async (req, res) => {
     var { title, description, status, priority } = req.body;
 
     const errors = [];
@@ -150,7 +152,7 @@ router.post("/api/cards/add", async (req, res) => {
 
 // Update a card
 
-router.put("/api/cards/edit/:id", async (req, res) => {
+router.put("/api/cards/edit/:id", isAuthenticated, async (req, res) => {
     var { title, description, status, priority } = req.body;
     const id = req.params.id;
     const errors = [];
@@ -179,7 +181,7 @@ router.put("/api/cards/edit/:id", async (req, res) => {
 });
 
 // Delete a card
-router.delete("/api/cards/delete/:id", async (req, res) => {
+router.delete("/api/cards/delete/:id", isAuthenticated, async (req, res) => {
     await Card.findByIdAndDelete(req.params.id);
     res.status(200).json({ message:"Tarea eliminada correctamente" })
 });
