@@ -31,6 +31,9 @@ router.post("/cards/add", async (req, res) => {
     if (!status || (status != "Por hacer" && status != "En proceso" && status != "Terminado")) {
         errors.push({ text: "Debe asignar uno de los tres estados posibles."});
     }
+    if (priority && priority != "Baja" && priority != "Media" && priority != "Alta") {
+        errors.push({ text: "La prioridad debe ser baja, media o alta."});
+    }
 
     if (errors.length > 0) {
         res.render("cards/new-card", {
@@ -72,6 +75,9 @@ router.put("/cards/edit/:id", async (req, res) => {
     }
     if (!status || (status != "Por hacer" && status != "En proceso" && status != "Terminado")) {
         errors.push({ text: "Debe asignar uno de los tres estados posibles." });
+    }
+    if (priority && priority != "Baja" && priority != "Media" && priority != "Alta") {
+        errors.push({ text: "La prioridad debe ser baja, media o alta."});
     }
 
     if (errors.length > 0) {

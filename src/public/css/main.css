@@ -1,7 +1,54 @@
 body {
-    background: #00c6ff;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #A1FFCE;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FAFFD1, #A1FFCE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    /*background: #457fca; 
+    background: -webkit-linear-gradient(to right, #5691c8, #457fca);  
+    background: linear-gradient(to right, #5691c8, #457fca); */ 
+    /*background: #00c6ff;  
+    background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  
+    background: linear-gradient(to right, #0072ff, #00c6ff); */
+    
+    /*background: #1D976C;  
+    background: -webkit-linear-gradient(to right, #93F9B9, #1D976C); 
+    background: linear-gradient(to right, #93F9B9, #1D976C); 
+*/
+}
+
+.task{
+    background-color: #ffffb6 !important;
+}
+
+.task:hover{
+    background-color: #ebe765 !important;
+    cursor:pointer;
+}
+
+.task-details-header{
+    background-color: #ebe765 !important;
+    color: black !important;
+}
+
+.task-details-body{
+    background-color: #ffffb6 !important;
+}
+
+.modal-header{
+    background-color: #343A40 !important;
+    color:white;
+}
+
+.modal-body{
+    background: #A1FFCE !important;
+    background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE)  !important;
+    background: linear-gradient(to right, #FAFFD1, #A1FFCE)  !important;
+}
+
+.modal-footer{
+    background: #A1FFCE !important;
+    background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE)  !important;
+    background: linear-gradient(to right, #FAFFD1, #A1FFCE)  !important;
 }
 
 .status-cards-outer-div{
@@ -11,6 +58,10 @@ body {
 .status-card-inner-div{
     height: 100%;
     overflow-y: auto;
+}
+
+.card-title{
+    margin:0 !important;
 }
 
 .drop-targets {
@@ -50,4 +101,32 @@ body {
 
 .hide {
     display: none;
+}
+
+.priority-icon{
+    width:25px;
+    height:25px;
+}
+
+.edit-or-delete-icon{
+    color:black;
+}
+
+.close-light{
+    color:white !important;
+}
+
+.form-task-header{
+
+    background-color: #ebe765 !important;
+}
+
+.form-task-body{
+    background-color: #ffffb6 !important;
+}
+
+.btn-primary{
+    background-color: #ebe765 !important;
+    border-color: #ebe765 !important;
+    color: black !important;
 }
