@@ -11,6 +11,7 @@ import methodOverride from "method-override";
 import session from "express-session";
 import flash from "connect-flash";
 import passport from "passport";
+import bodyParser from "body-parser";
 
 const app = express();
 require('./database');
@@ -22,14 +23,20 @@ const exphbs = create({
     extname: '.hbs',
     layoutsDir: path.join(app.get("views"), "layouts"),
     partialsDir: path.join(app.get("views"), "partials"),
-    defaultLayout:'main'
+    defaultLayout:'main',
+
+    // Helpers
+    helpers: {
+        ifEquals: function(arg1, arg2, options) {
+            return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+        }
+    }
   });
   
 app.engine(".hbs", exphbs.engine);
 app.set("view engine", ".hbs");
 
 // Middlewares
-
 app.use(express.urlencoded( {extended: false} ));
 app.use(methodOverride("_method"));
 app.use(morgan("dev"));
@@ -38,15 +45,17 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
-// Global Variables
+// Global variables
 app.use((req, res, next) => {
-  res.locals.sucess_msg = req.flash('sucess_msg');
+  res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
   next();
 });
 

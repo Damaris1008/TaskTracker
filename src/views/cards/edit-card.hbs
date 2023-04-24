@@ -1,25 +1,55 @@
 <div class="col-md-4 mx-auto">
-    <div class="card">
-        <div class="card-header">
-            <h3>Editar tarjeta</h3>
+    <div class="card form-task-body">
+        <div class="card-header form-task-header">
+            <h3>Editar tarea</h3>
         </div>
         <div class="card-body">
-            <form action="/cards/edit/{{card._id}}?_method=PUT" method="POST">
+            {{#each errors}}
+            <div class="alert alert-danger alert-dismissible fade show">
+                {{text}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/each}}
+            <form action="/cards/edit/{{id}}?_method=PUT" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">
-                    <input type="text" name="title" class="form-control" value="{{card.title}}"
+                    <input type="text" name="title" class="form-control" value="{{title}}"
                         placeholder="Introduzca un título para su tarjeta..." autofocus>
                 </div>
                 <div class="form-group">
                     <textarea type="text" name="description" class="form-control" rows=5
-                        placeholder="Introduzca si lo desea una descripción detallada para su tarjeta...">{{card.description}}</textarea>
+                        placeholder="Introduzca si lo desea una descripción detallada para su tarjeta...">{{description}}</textarea>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="status" class="form-control" value="{{card.status}}"
-                        placeholder="Describa el estado de esta tarjeta...">
+                    <select class="form-control w-100" name="status" aria-label=".form-select-lg example">
+                        {{#if status}}
+                            <option value="{{status}}" hidden="hidden" selected="selected">{{status}}</option>
+                        {{else}}
+                            <option value="" hidden="hidden" selected="selected">Seleccione un estado...</option>
+                        {{/if}}
+                        <option value="">Seleccione un estado...</option>
+                        <option value="Por hacer">Por hacer</option>
+                        <option value="En curso">En curso</option>
+                        <option value="Terminado">Terminado</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary btn-block">
+                    <select class="form-control w-100" name="priority" aria-label=".form-select-lg example">
+                        {{#if priority}}
+                            <option value="{{priority}}" hidden="hidden" selected="selected">{{priority}}</option>
+                        {{else}}
+                            <option value="" hidden="hidden" selected="selected">Seleccione una prioridad...</option>
+                        {{/if}}
+                        <option value="">Seleccione una prioridad...</option>
+                        <option value="Baja">Baja</option>
+                        <option value="Media">Media</option>
+                        <option value="Alta">Alta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-dark btn-block">
                         Confirmar
                     </button>
                 </div>

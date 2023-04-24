@@ -15,6 +15,11 @@ const cardSchema = new Schema({
         type: String,
         required: true,
         trim: true
+    },
+    priority: {
+        type: String,
+        required: false,
+        trim: true
     }
 }, {
     timestamps: true,

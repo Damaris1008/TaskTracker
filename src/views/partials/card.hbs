@@ -1,0 +1,127 @@
+<div class="mb-3">
+
+    <div class="card border-0 " data-toggle="modal" data-target="#detailsModal-{{_id}}">
+        <div class="card-body task d-flex rounded" 
+        {{#if priority}}
+            {{#ifEquals priority "Baja"}}
+            style="border-left-color:rgb(119, 209, 223) !important"
+            {{/ifEquals}}
+            {{#ifEquals priority "Media"}}
+            style="border-left-color:rgb(253, 243, 132) !important"
+            {{/ifEquals}}
+            {{#ifEquals priority "Alta"}}
+            style="border-left-color:rgb(249, 103, 103) !important"
+            {{/ifEquals}}
+        {{else}}
+            style="border-left-color:rgb(200, 200, 200) !important"
+        {{/if}}>
+            <p class="card-title flex-grow-1">{{title}}</p>
+            {{#ifEquals priority "Media"}}
+            <img src="/img/prioridad-media.png" class="priority-icon" alt="Prioridad media">
+            {{/ifEquals}}
+            {{#ifEquals priority "Alta"}}
+            <img src="/img/prioridad-alta.png" class="priority-icon" alt="Prioridad alta">
+            {{/ifEquals}}
+        </div>
+    </div>
+
+    <form action="/cards/delete/{{_id}}?_method=DELETE" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <!-- Delete modal -->
+        <div class="modal fade" id="deleteModal-{{_id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModallLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModallLabel">¡Tenga cuidado!</h5>
+                        <button type="button" class="close close-light" data-dismiss="modal" aria-label="Close">
+                            <span class="close-icon"aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body delete-modal-body">
+                        Esta acción no se puede deshacer, ¿está seguro de que desea eliminar esta tarea?
+                    </div>
+                    <div class="modal-footer delete-modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancelar </button>
+                        <button type="submit" class="btn btn-danger"> Confirmar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Details modal -->
+    <div class="modal fade" id="detailsModal-{{_id}}" tabindex="-1" role="dialog" aria-labelledby="detailsModallLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModallLabel">Detalles de la tarea</h5>
+                    <button type="button" class="close close-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card border-0">
+                        <div class="card-header pt-4 task-details-header d-flex" 
+                        {{#if priority}}
+                            {{#ifEquals priority "Baja"}}
+                            style="border-left-color:rgb(119, 209, 223) !important"
+                            {{/ifEquals}}
+                            {{#ifEquals priority "Media"}}
+                            style="border-left-color:rgb(253, 243, 132) !important"
+                            {{/ifEquals}}
+                            {{#ifEquals priority "Alta"}}
+                            style="border-left-color:rgb(249, 103, 103) !important"
+                            {{/ifEquals}}
+                        {{else}}
+                            style="border-left-color:rgb(200, 200, 200) !important"
+                        {{/if}}>
+                            <h5 class="flex-grow-1">{{title}}</h5>
+                            <a href="/cards/edit/{{_id}}">
+                                <i class="fas fa-edit fa-lg edit-or-delete-icon"></i>
+                            </a>
+                            <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#deleteModal-{{_id}}">
+                                <i class="fas fa-trash fa-lg pl-2 edit-or-delete-icon"></i>
+                            </a>
+             
+                        </div>
+                        <div class="card-body task-details-body rounded">
+                            <table class="table table-borderless w-auto">
+                                <tbody>
+                                    <tr>
+                                        {{#if description}}
+                                        <th scope="row">Descripción</th>
+                                        <td>{{description}}</td>
+                                        {{/if}}
+                                    </tr>
+                                    <tr>
+                                        {{#if priority}}
+                                        <th scope="row">Prioridad</th>
+                                        <td>{{priority}}&nbsp;
+                                            {{#ifEquals priority "Media"}}
+                                            (<img src="/img/prioridad-media.png" class="priority-icon" alt="Prioridad media">)
+                                            {{/ifEquals}}
+                                            {{#ifEquals priority "Alta"}}
+                                            (<img src="/img/prioridad-alta.png" class="priority-icon" alt="Prioridad alta">)
+                                            {{/ifEquals}}
+                                            {{#ifEquals priority "Muy alta"}}
+                                            (<img src="/img/prioridad-alta.png" class="priority-icon" alt="Prioridad muy alta">)
+                                            {{/ifEquals}}
+                                        </td>
+                                        
+                                        {{/if}}
+                                    </tr>
+                                    <th scope="row">Estado</th>
+                                    <td>{{status}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
