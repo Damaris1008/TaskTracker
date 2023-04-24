@@ -1,5 +1,9 @@
 body {
-    background:rgb(217, 217, 217);
+  background:rgb(217, 217, 217);
+}
+
+.logo {
+    width: 30%;
 }
 
 .task{
