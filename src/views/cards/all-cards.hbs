@@ -1,59 +1,51 @@
 <div class="row">
-    {{#each cards}}
-    <div class="col-md-3 pb-4">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title d-flex justify-content-between align-items-center">
-                    {{title}} <a href="/cards/edit/{{_id}}"><i class="fas fa-edit"></i></a>
-                </h4>
-                {{#if description}}
-                <p class="card-text">
-                    {{description}}
-                </p>
-                {{/if}}
-                <p class="card-text">
-                    <strong>Estado: </strong>
-                    {{status}}
-                </p>
-                {{#if priority}}
-                <p class="card-text">
-                    <strong>Prioridad: </strong>
-                    {{priority}}
-                </p>
-                {{/if}}
-                <form action="/cards/delete/{{_id}}?_method=DELETE" method="POST">
-                    <input type="hidden" name="_method" value="DELETE">
 
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-danger btn-block btn-sm" data-toggle="modal" data-target="#deleteModal">
-                        Eliminar
-                    </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModallLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModallLabel">¡Tenga cuidado!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Esta acción no se puede deshacer, ¿está seguro de que desea eliminar esta tarea?        
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancelar </button>
-                            <button type="submit" class="btn btn-danger"> Confirmar </button>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </form>
-                 
+    {{#if cards}}
+    <div class="col-md-4 status-cards-outer-div pb-4">
+        <div class="card border-0 rounded h-100" style="background-color:#343A40">
+            <div class="card-header" style="background-color:#e3c87d">
+                <h3>Por hacer</h3>
+            </div>
+            <div class="card-body status-card-inner-div rounded" >
+                {{#each cards}}
+                    {{#ifEquals status "Por hacer"}}
+                        {{> card}}
+                    {{/ifEquals}} 
+                {{/each}}
             </div>
         </div>
     </div>
+
+    <div class="col-md-4 status-cards-outer-div pb-4">
+        <div class="card border-0 rounded h-100" style="background-color:#343A40">
+            <div class="card-header" style="background-color: #ece67f">
+                <h3>En proceso</h3>
+            </div>
+            <div class="card-body status-card-inner-div">
+                {{#each cards}}
+                    {{#ifEquals status "En proceso"}}
+                        {{> card}}
+                    {{/ifEquals}} 
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 status-cards-outer-div pb-4">
+        <div class="card border-0 rounded h-100" style="background-color:#343A40">
+            <div class="card-header" style="background-color:rgb(198, 237, 146)">
+                <h3>Terminado</h3>
+            </div>
+            <div class="card-body status-card-inner-div">
+                {{#each cards}}
+                    {{#ifEquals status "Terminado"}}
+                        {{> card}}
+                    {{/ifEquals}} 
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
     {{else}}
     <div class="card mx-auto">
         <div class="card-body">
@@ -63,6 +55,6 @@
             <a href="/cards/add" class="btn btn-success btn-block">¡Crea una!</a>
         </div>
     </div>
-
-    {{/each}}
+    {{/if}}
+    
 </div>

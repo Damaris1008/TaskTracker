@@ -28,7 +28,7 @@ router.post("/cards/add", async (req, res) => {
     if (!title) {
         errors.push({ text: "Debe introducir un título." });
     }
-    if (!status || (status != "Por hacer" && status != "En progreso" && status != "Terminado")) {
+    if (!status || (status != "Por hacer" && status != "En proceso" && status != "Terminado")) {
         errors.push({ text: "Debe asignar uno de los tres estados posibles."});
     }
 
@@ -70,7 +70,7 @@ router.put("/cards/edit/:id", async (req, res) => {
     if (!title) {
         errors.push({ text: "Debe introducir un título." });
     }
-    if (!status || (status != "Por hacer" && status != "En progreso" && status != "Terminado")) {
+    if (!status || (status != "Por hacer" && status != "En proceso" && status != "Terminado")) {
         errors.push({ text: "Debe asignar uno de los tres estados posibles." });
     }
 

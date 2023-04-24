@@ -19,7 +19,14 @@ const exphbs = create({
     extname: '.hbs',
     layoutsDir: path.join(app.get("views"), "layouts"),
     partialsDir: path.join(app.get("views"), "partials"),
-    defaultLayout:'main'
+    defaultLayout:'main',
+
+    // Helpers
+    helpers: {
+        ifEquals: function(arg1, arg2, options) {
+            return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+        }
+    }
   });
   
 app.engine(".hbs", exphbs.engine);
