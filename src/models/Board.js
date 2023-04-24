@@ -1,14 +1,14 @@
 import {Schema, model} from 'mongoose';
 
-const statusSchema = new Schema({
-    status: {
+const boardSchema = new Schema({
+    name: {
         type: String,
         required: true,
         trim: true
     }
 }, {
-    timestamps: false,
+    timestamps: true,
     versionKey: false
 })
 
-export default model('Status', statusSchema);
+export default model('Board', boardSchema);

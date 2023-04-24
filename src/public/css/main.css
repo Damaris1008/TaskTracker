@@ -1,5 +1,126 @@
 body {
-    background: #00c6ff;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background:rgb(217, 217, 217);
+}
+
+.task{
+    background-color: white !important;
+    border-width:10px !important;
+    border:solid #0000;
+}
+
+.task:hover{
+    background-color: #ebebeb !important;
+    cursor:pointer;
+}
+
+.task-details-header{
+    background-color: #ffffff !important;
+    border-width:10px !important    ;
+    border:solid #0000;
+}
+
+.task-details-body{
+    background-color: #f7f7f7;
+}
+
+.modal-content {
+    background-color: #343A40;
+}
+.modal-header{
+    background-color: #343A40;
+    color:white;
+    border:0;
+}
+
+.modal-body{
+    background: rgb(217, 217, 217);
+}
+
+.delete-modal-body{
+    background: rgb(255, 255, 255);
+}
+
+.delete-modal-footer{
+    background: rgb(255, 255, 255) !important;
+}
+
+.modal-footer{
+    background: rgb(217, 217, 217);
+    border:0;
+}
+
+.status-cards-outer-div{
+    height: 580px;
+    max-height:580px; 
+}
+.status-card-inner-div{
+    height: 100%;
+    overflow-y: auto;
+    padding:7px !important;
+}
+
+.card-title{
+    margin:0 !important;
+}
+
+.drop-targets {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    margin: 20px 0;
+}
+
+.box {
+    height: 150px;
+    width: 150px;
+    border: solid 3px #ccc;
+    margin: 10px;
+
+    /* align items in the box */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.drag-over {
+    border: dashed 3px red;
+}
+
+.item {
+    height: 75px;
+    width: 75px;
+    background-color: #F0DB4F;
+
+}
+
+.hide {
+    display: none;
+}
+
+.priority-icon{
+    width:25px;
+    height:25px;
+}
+
+.edit-or-delete-icon{
+    color:black;
+}
+
+.close-light{
+    color:white !important;
+}
+
+.form-task-header{
+
+    background-color: #343A40 !important;
+    color:white;
+}
+
+.form-task-body{
+    background-color: #ffffff !important;
 }
