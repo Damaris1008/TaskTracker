@@ -10,9 +10,12 @@ import morgan from "morgan";
 import methodOverride from "method-override";
 import session from "express-session";
 import flash from "connect-flash";
+import passport from "passport";
 import bodyParser from "body-parser";
 
 const app = express();
+require('./database');
+require('./config/passport');
 
 app.set("views", path.join(__dirname, "views"));
 
@@ -42,6 +45,9 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
