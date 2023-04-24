@@ -20,7 +20,7 @@ router.get("/users/signup", (req, res) => {
 });
 
 router.post("/users/signup", async (req, res) => {
-    var {name, email, password, confirm_password}  = req.body;
+    const {name, email, password, confirm_password}  = req.body;
     const errors = [];
     if(name.length <= 0) {
         errors.push({text: 'Por favor, inserte un nombre'});
@@ -46,14 +46,14 @@ router.post("/users/signup", async (req, res) => {
         const emailUser = await User.findOne({email: email});
         if(emailUser) {
             req.flash('error_msg', "El correo electrónico ya está en uso");
-            res.redirect('/users/signup');
-        }else{
-            var newUser = new User({name, email, password});
-            newUser.password = await newUser.encryptPassword(password);
-            await newUser.save();
-            req.flash('success_msg', "Registro realizado correctamente");
-            res.redirect('/users/signin');
+            return res.redirect('/users/signup');
         }
+        const newUser = new User({name, email, password});
+        newUser.password = await newUser.encryptPassword(password);
+        await newUser.save();
+        req.flash('success_msg', "Registro realizado correctamente");
+        res.redirect('/users/signin');
+
     }
 });
 

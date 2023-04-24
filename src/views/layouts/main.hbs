@@ -13,13 +13,12 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/main.css">
 
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-
 </head>
 <body>
     {{> navbar}}
 
-    <main class="container p-3">
+    <main class="container pt-4">
+        {{> errors}}
         {{> messages}}
         {{{ body }}}
     </main>
