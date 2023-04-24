@@ -47,13 +47,13 @@ router.post("/users/signup", async (req, res) => {
         if(emailUser) {
             req.flash('error_msg', "El correo electrónico ya está en uso");
             res.redirect('/users/signup');
-        }else{
-            var newUser = new User({name, email, password});
-            newUser.password = await newUser.encryptPassword(password);
-            await newUser.save();
-            req.flash('success_msg', "Registro realizado correctamente");
-            res.redirect('/users/signin');
         }
+        var newUser = new User({name, email, password});
+        newUser.password = await newUser.encryptPassword(password);
+        await newUser.save();
+        req.flash('success_msg', "Registro realizado correctamente");
+        res.redirect('/users/signin');
+        
     }
 });
 
