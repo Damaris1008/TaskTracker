@@ -1,16 +1,26 @@
 <div class="mb-3">
 
     <div class="card border-0 " data-toggle="modal" data-target="#detailsModal-{{_id}}">
-        <div class="card-body task d-flex rounded task">
+        <div class="card-body task d-flex rounded task" 
+        {{#if priority}}
+            {{#ifEquals priority "Baja"}}
+            style="border-left-color:rgb(119, 209, 223) !important"
+            {{/ifEquals}}
+            {{#ifEquals priority "Media"}}
+            style="border-left-color:rgb(253, 243, 132) !important"
+            {{/ifEquals}}
+            {{#ifEquals priority "Alta"}}
+            style="border-left-color:rgb(249, 103, 103) !important"
+            {{/ifEquals}}
+        {{else}}
+            style="border-left-color:rgb(200, 200, 200) !important"
+        {{/if}}>
             <p class="card-title flex-grow-1">{{title}}</p>
             {{#ifEquals priority "Media"}}
             <img src="/img/prioridad-media.png" class="priority-icon" alt="Prioridad media">
             {{/ifEquals}}
             {{#ifEquals priority "Alta"}}
             <img src="/img/prioridad-alta.png" class="priority-icon" alt="Prioridad alta">
-            {{/ifEquals}}
-            {{#ifEquals priority "Muy alta"}}
-            <img src="/img/prioridad-alta.png" class="priority-icon" alt="Prioridad muy alta">
             {{/ifEquals}}
         </div>
     </div>

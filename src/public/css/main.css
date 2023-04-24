@@ -1,8 +1,8 @@
 body {
-    background: #A1FFCE;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FAFFD1, #A1FFCE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
+    /*background: #A1FFCE;  
+    background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE); 
+    background: linear-gradient(to right, #FAFFD1, #A1FFCE);*/
+    background:white;
     /*background: #457fca; 
     background: -webkit-linear-gradient(to right, #5691c8, #457fca);  
     background: linear-gradient(to right, #5691c8, #457fca); */ 
@@ -17,7 +17,9 @@ body {
 }
 
 .task{
-    background-color: #ffffb6 !important;
+    background-color: white !important;
+    border-width:10px !important    ;
+    border:solid #0000;
 }
 
 .task:hover{
@@ -52,12 +54,13 @@ body {
 }
 
 .status-cards-outer-div{
-    height: 515px;
-    max-height:515px; 
+    height: 600px;
+    max-height:600px; 
 }
 .status-card-inner-div{
     height: 100%;
     overflow-y: auto;
+    padding:7px !important;
 }
 
 .card-title{

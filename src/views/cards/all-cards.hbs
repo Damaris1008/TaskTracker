@@ -2,9 +2,9 @@
 
     {{#if cards}}
     <div class="col-md-4 status-cards-outer-div pb-4">
-        <div class="card border-0 rounded h-100" style="background-color:#343A40">
-            <div class="card-header" style="background-color:#e3c87d">
-                <h4>Por hacer</h4>
+        <div class="card border-0 rounded h-100" style="background-color:#f4f5f7">
+            <div class="card-header status-title" style="background-color:#343A40; color:white">
+                <h5>POR HACER</h5>
             </div>
             <div class="card-body status-card-inner-div rounded" >
                 {{#each cards}}
@@ -17,13 +17,13 @@
     </div>
 
     <div class="col-md-4 status-cards-outer-div pb-4">
-        <div class="card border-0 rounded h-100" style="background-color:#343A40">
-            <div class="card-header" style="background-color: #ece67f">
-                <h4>En proceso</h4>
+        <div class="card border-0 rounded h-100" style="background-color:#f4f5f7">
+            <div class="card-header" style="background-color:#343A40; color:white">
+                <h5>EN CURSO</h5>
             </div>
             <div class="card-body status-card-inner-div">
                 {{#each cards}}
-                    {{#ifEquals status "En proceso"}}
+                    {{#ifEquals status "En curso"}}
                         {{> card}}
                     {{/ifEquals}} 
                 {{/each}}
@@ -32,9 +32,9 @@
     </div>
 
     <div class="col-md-4 status-cards-outer-div pb-4">
-        <div class="card border-0 rounded h-100" style="background-color:#343A40">
-            <div class="card-header" style="background-color:rgb(198, 237, 146)">
-                <h4>Terminado</h4>
+        <div class="card border-0 rounded h-100" style="background-color:#f4f5f7">
+            <div class="card-header" style="background-color:#343A40; color:white">
+                <h5>TERMINADO</h5>
             </div>
             <div class="card-body status-card-inner-div">
                 {{#each cards}}

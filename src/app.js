@@ -10,6 +10,7 @@ import morgan from "morgan";
 import methodOverride from "method-override";
 import session from "express-session";
 import flash from "connect-flash";
+import bodyParser from "body-parser";
 
 const app = express();
 
@@ -42,6 +43,8 @@ app.use(session({
   saveUninitialized: true
 }))
 app.use(flash());
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 // Global variables
 app.use((req, res, next) => {
