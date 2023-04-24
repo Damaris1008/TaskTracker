@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
-import app from './app'
-import './database'
+import app from './app';
+import './database';
+import './config/passport';
 
 const port = process.env.PORT || 3000;
 

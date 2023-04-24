@@ -9,8 +9,12 @@ import path from "path";
 import morgan from "morgan";
 import methodOverride from "method-override";
 import session from "express-session";
+import flash from "connect-flash";
+import passport from "passport";
 
 const app = express();
+require('./database');
+require('./config/passport');
 
 app.set("views", path.join(__dirname, "views"));
 
@@ -34,6 +38,17 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+// Global Variables
+app.use((req, res, next) => {
+  res.locals.sucess_msg = req.flash('sucess_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 // Static files
 app.use(express.static(path.join(__dirname, "public")));
