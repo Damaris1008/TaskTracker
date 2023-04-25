@@ -5,6 +5,8 @@ import User from '../models/User';
 const passport = require('passport');
 const router = Router();
 
+// APP 
+
 router.get("/users/signin", (req, res) => {
     res.render('users/signin');
 });
@@ -64,6 +66,61 @@ router.get("/users/logout", function(req, res, next) {
       }
       res.redirect("/");
     });
-  });
+});
+
+
+// API
+
+router.post("/api/users/signin", (req, res) => passport.authenticate('local', {
+    successRedirect: res.status(201).json({ message:"Sesión iniciada correctamente" }),
+    failureRedirect: '/users/signin',
+    failureFlash: true
+}));
+
+router.post("/api/users/signup", async (req, res) => {
+    const {name, email, password, confirm_password}  = req.body;
+    const errors = [];
+    if(name.length <= 0) {
+        errors.push({text: 'Por favor, inserte un nombre'});
+    }
+    if(email.length <= 0) {
+        errors.push({text: 'Por favor, inserte un correo electrónico'});
+    }
+    if(password.length <= 0) {
+        errors.push({text: 'Por favor, inserte una contraseña'});
+    }
+    if(confirm_password.length <= 0) {
+        errors.push({text: 'Por favor, inserte la confirmación de contraseña'});
+    }
+    if(password != confirm_password) {
+        errors.push({text: "Las contraseñas no coinciden"});
+    }
+    if(password.length < 4 && password.length > 0) {
+        errors.push({text: "La contraseña debe tener al menos 4 caracteres"});
+    }
+    if(errors.length > 0) {
+        res.render('users/signup', {errors, name, email, password, confirm_password});
+    } else {
+        const emailUser = await User.findOne({email: email});
+        if(emailUser) {
+            req.flash('error_msg', "El correo electrónico ya está en uso");
+            return res.redirect('/users/signup');
+        }
+        const newUser = new User({name, email, password});
+        newUser.password = await newUser.encryptPassword(password);
+        await newUser.save();
+        res.status(201).json(newUser);
+
+    }
+});
+
+router.get("/api/users/logout", function(req, res, next) {
+    req.logout(function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.status(201).json({ message:"Sesión cerrada correctamente" });
+    });
+});
 
 export default router;
