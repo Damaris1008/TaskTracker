@@ -1,9 +1,11 @@
 import { Router } from "express";
 import flash from "connect-flash";
 import User from '../models/User';
+import bcrypt from "bcryptjs/dist/bcrypt";
 
 const passport = require('passport');
 const router = Router();
+const jwt = require("jsonwebtoken");
 
 // APP 
 
@@ -71,11 +73,31 @@ router.get("/users/logout", function(req, res, next) {
 
 // API
 
-router.post("/api/users/signin", (req, res) => passport.authenticate('local', {
-    successRedirect: res.status(201).json({ message:"Sesión iniciada correctamente" }),
-    failureRedirect: '/users/signin',
-    failureFlash: true
-}));
+router.post("/api/users/signin", async (req, res) => {
+    const { email, password } = req.body;
+    if(!email || !password) {
+        res.status(400);
+        throw new Error("Debes introducir tu email y contraseña");
+    }
+    const user = await User.findOne({email});
+    if(user && (await bcrypt.compare(password, user.password))) {
+        const accessToken = jwt.sign({
+            user: {
+                name: user.name,
+                email: user.email,
+                id: user.id,
+            },
+        }, process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: "1m" }
+        );
+        res.status(200).json({email, accessToken});
+    }else {
+        res.status(401);
+        throw new Error("Email o contraseña incorrecto");
+    }
+}
+
+);
 
 router.post("/api/users/signup", async (req, res) => {
     const {name, email, password, confirm_password}  = req.body;
@@ -103,8 +125,7 @@ router.post("/api/users/signup", async (req, res) => {
     } else {
         const emailUser = await User.findOne({email: email});
         if(emailUser) {
-            req.flash('error_msg', "El correo electrónico ya está en uso");
-            return res.redirect('/users/signup');
+            return res.status(400).json({ message:"El correo electrónico ya está en uso" });
         }
         const newUser = new User({name, email, password});
         newUser.password = await newUser.encryptPassword(password);

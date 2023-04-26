@@ -3,6 +3,7 @@ import Card from "../models/Card";
 
 const router = Router();
 const { isAuthenticated } = require('../helpers/auth');
+const validateToken = require('../helpers/validateToken');
 
 //APP
 
@@ -68,6 +69,10 @@ router.put("/cards/edit/:id", isAuthenticated, async (req, res) => {
     var { title, description, status, priority } = req.body;
     const id = req.params.id;
     const errors = [];
+
+    if(req.body.user_id.toString() !== req.user.id){
+        errors.push({ text: "No tienes permiso para editar tareas de otros usuarios."});
+    }
     if(status==""){
         status=null;
     }
@@ -104,23 +109,26 @@ router.put("/cards/edit/:id", isAuthenticated, async (req, res) => {
 
 // Delete a card
 router.delete("/cards/delete/:id", isAuthenticated, async (req, res) => {
-    await Card.findByIdAndDelete(req.params.id);
+    const card = await Card.findByIdAndDelete(req.params.id);
+    if(card.user_id.toString() !== req.user.id){
+        throw new Error("No tienes permisos para eliminar una tarea de otro usuario")
+    } 
     req.flash("success_msg", "Tarea eliminada correctamente.");
     res.redirect("/cards");
 });
 
+
 // API
 
 // Get all cards
-router.get("/api/cards", isAuthenticated, async (req,  res) => {
-    const cards = await Card.find().sort({createdAt: 'desc'}).lean();
+router.get("/api/cards", validateToken, async (req,  res) => {
+    const cards = await await Card.find({user: req.user.id}).sort({createdAt: 'desc'}).lean();
     res.status(200).json(cards);
 });
 
 
 // Post a new card
-
-router.post("/api/cards/add", isAuthenticated, async (req, res) => {
+router.post("/api/cards/add", validateToken, async (req, res) => {
     var { title, description, status, priority } = req.body;
 
     const errors = [];
@@ -144,6 +152,7 @@ router.post("/api/cards/add", isAuthenticated, async (req, res) => {
         res.status(400).json(errors);
     } else {
         const newCard = new Card({ title, description, status, priority });
+        newCard.user = req.user.id;
         await newCard.save();
         res.status(201).json(newCard);
     }
@@ -151,11 +160,14 @@ router.post("/api/cards/add", isAuthenticated, async (req, res) => {
 });
 
 // Update a card
-
-router.put("/api/cards/edit/:id", isAuthenticated, async (req, res) => {
+router.put("/api/cards/edit/:id", validateToken, async (req, res) => {
     var { title, description, status, priority } = req.body;
     const id = req.params.id;
     const errors = [];
+
+    if(req.body.user_id.toString() !== req.user.id){
+            res.status(403).json({ message:"No tienes permisos para editar tareas de otro usuario" });
+    }
     if(status==""){
         status=null;
     }
@@ -181,8 +193,11 @@ router.put("/api/cards/edit/:id", isAuthenticated, async (req, res) => {
 });
 
 // Delete a card
-router.delete("/api/cards/delete/:id", isAuthenticated, async (req, res) => {
-    await Card.findByIdAndDelete(req.params.id);
+router.delete("/api/cards/delete/:id", validateToken, async (req, res) => {
+    const card = await Card.findByIdAndDelete(req.params.id);
+    if(card.user_id.toString() !== req.user.id){
+        res.status(403).json({ message:"No tienes permisos para editar tareas de otro usuario" });
+    }   
     res.status(200).json({ message:"Tarea eliminada correctamente" })
 });
 
