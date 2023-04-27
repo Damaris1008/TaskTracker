@@ -33,7 +33,7 @@ router.post("/cards/add", isAuthenticated, async (req, res) => {
         errors.push({ text: "Debe introducir un título." });
     }
     if (!status || (status != "Por hacer" && status != "En curso" && status != "Terminado")) {
-        errors.push({ text: "El estado debe ser \"Por hacer\", \"En curso\" o \"Terminado\"."});
+        errors.push({ text: "El estado debe ser 'Por hacer', 'En curso' o 'Terminado'."});
     }
     if (priority && priority != "Baja" && priority != "Media" && priority != "Alta") {
         errors.push({ text: "La prioridad debe ser baja, media o alta."});
@@ -70,7 +70,9 @@ router.put("/cards/edit/:id", isAuthenticated, async (req, res) => {
     const id = req.params.id;
     const errors = [];
 
-    if(req.body.user_id.toString() !== req.user.id){
+    const card = await Card.findById(req.params.id).lean();
+
+    if(card.user !== req.user.id){
         errors.push({ text: "No tienes permiso para editar tareas de otros usuarios."});
     }
     if(status==""){
@@ -83,7 +85,7 @@ router.put("/cards/edit/:id", isAuthenticated, async (req, res) => {
         errors.push({ text: "Debe introducir un título." });
     }
     if (!status || (status != "Por hacer" && status != "En curso" && status != "Terminado")) {
-        errors.push({ text: "El estado debe ser \"Por hacer\", \"En curso\" o \"Terminado\"."});
+        errors.push({ text: "El estado debe ser 'Por hacer', 'En curso' o 'Terminado'."});
     }
     if (priority && priority != "Baja" && priority != "Media" && priority != "Alta") {
         errors.push({ text: "La prioridad debe ser baja, media o alta."});
@@ -109,12 +111,14 @@ router.put("/cards/edit/:id", isAuthenticated, async (req, res) => {
 
 // Delete a card
 router.delete("/cards/delete/:id", isAuthenticated, async (req, res) => {
-    const card = await Card.findByIdAndDelete(req.params.id);
-    if(card.user_id.toString() !== req.user.id){
-        throw new Error("No tienes permisos para eliminar una tarea de otro usuario")
-    } 
-    req.flash("success_msg", "Tarea eliminada correctamente.");
-    res.redirect("/cards");
+    const card = await Card.findById(req.params.id).lean();
+    if(card.user !== req.user.id){
+        errors.push({ text: "No tienes permiso para eliminar tareas de otros usuarios."});
+    }else{
+        await Card.findByIdAndDelete(req.params.id);
+        req.flash("success_msg", "Tarea eliminada correctamente.");
+        res.redirect("/cards");
+    }
 });
 
 
@@ -142,7 +146,7 @@ router.post("/api/cards/add", validateToken, async (req, res) => {
         errors.push({ error: "Debe introducir un título." });
     }
     if (!status || (status != "Por hacer" && status != "En curso" && status != "Terminado")) {
-        errors.push({ error: "El estado debe ser \"Por hacer\", \"En curso\" o \"Terminado\"."});
+        errors.push({ error: "El estado debe ser 'Por hacer', 'En curso' o 'Terminado'."});
     }
     if (priority && priority != "Baja" && priority != "Media" && priority != "Alta") {
         errors.push({ error: "La prioridad debe ser baja, media o alta."});
@@ -165,8 +169,10 @@ router.put("/api/cards/edit/:id", validateToken, async (req, res) => {
     const id = req.params.id;
     const errors = [];
 
-    if(req.body.user_id.toString() !== req.user.id){
-            res.status(403).json({ message:"No tienes permisos para editar tareas de otro usuario" });
+    const card = await Card.findById(req.params.id).lean();
+
+    if(card.user !== req.user.id){
+        errors.push({ error: "No tienes permiso para editar tareas de otros usuarios."});
     }
     if(status==""){
         status=null;
@@ -178,7 +184,7 @@ router.put("/api/cards/edit/:id", validateToken, async (req, res) => {
         errors.push({ error: "Debe introducir un título." });
     }
     if (!status || (status != "Por hacer" && status != "En curso" && status != "Terminado")) {
-        errors.push({ error: "El estado debe ser \"Por hacer\", \"En curso\" o \"Terminado\"."});
+        errors.push({ error: "El estado debe ser 'Por hacer', 'En curso' o 'Terminado'."});
     }
     if (priority && priority != "Baja" && priority != "Media" && priority != "Alta") {
         errors.push({ error: "La prioridad debe ser baja, media o alta."});
@@ -194,11 +200,13 @@ router.put("/api/cards/edit/:id", validateToken, async (req, res) => {
 
 // Delete a card
 router.delete("/api/cards/delete/:id", validateToken, async (req, res) => {
-    const card = await Card.findByIdAndDelete(req.params.id);
-    if(card.user_id.toString() !== req.user.id){
-        res.status(403).json({ message:"No tienes permisos para editar tareas de otro usuario" });
-    }   
-    res.status(200).json({ message:"Tarea eliminada correctamente" })
+    const card = await Card.findById(req.params.id).lean();
+    if(card.user !== req.user.id){
+        res.status(403).json({ error:"No tienes permisos para eliminar tareas de otro usuario" });
+    }else{
+        await Card.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message:"Tarea eliminada correctamente" })
+    }
 });
 
 export default router;

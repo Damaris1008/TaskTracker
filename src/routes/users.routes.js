@@ -76,8 +76,7 @@ router.get("/users/logout", function(req, res, next) {
 router.post("/api/users/signin", async (req, res) => {
     const { email, password } = req.body;
     if(!email || !password) {
-        res.status(400);
-        throw new Error("Debes introducir tu email y contraseña");
+        return res.status(400).json({ error:"Debes introducir tu email y contraseña" });
     }
     const user = await User.findOne({email});
     if(user && (await bcrypt.compare(password, user.password))) {
@@ -91,9 +90,8 @@ router.post("/api/users/signin", async (req, res) => {
         { expiresIn: "1m" }
         );
         res.status(200).json({email, accessToken});
-    }else {
-        res.status(401);
-        throw new Error("Email o contraseña incorrecto");
+    }else{
+        res.status(401).json({ error:"Email o contraseña incorrecto" });
     }
 }
 
@@ -103,29 +101,29 @@ router.post("/api/users/signup", async (req, res) => {
     const {name, email, password, confirm_password}  = req.body;
     const errors = [];
     if(name.length <= 0) {
-        errors.push({text: 'Por favor, inserte un nombre'});
+        errors.push({error: 'Por favor, inserte un nombre'});
     }
     if(email.length <= 0) {
-        errors.push({text: 'Por favor, inserte un correo electrónico'});
+        errors.push({error: 'Por favor, inserte un correo electrónico'});
     }
     if(password.length <= 0) {
-        errors.push({text: 'Por favor, inserte una contraseña'});
+        errors.push({error: 'Por favor, inserte una contraseña'});
     }
     if(confirm_password.length <= 0) {
-        errors.push({text: 'Por favor, inserte la confirmación de contraseña'});
+        errors.push({error: 'Por favor, inserte la confirmación de contraseña'});
     }
     if(password != confirm_password) {
-        errors.push({text: "Las contraseñas no coinciden"});
+        errors.push({error: "Las contraseñas no coinciden"});
     }
     if(password.length < 4 && password.length > 0) {
-        errors.push({text: "La contraseña debe tener al menos 4 caracteres"});
+        errors.push({error: "La contraseña debe tener al menos 4 caracteres"});
     }
     if(errors.length > 0) {
         res.render('users/signup', {errors, name, email, password, confirm_password});
     } else {
         const emailUser = await User.findOne({email: email});
         if(emailUser) {
-            return res.status(400).json({ message:"El correo electrónico ya está en uso" });
+            return res.status(400).json({ error: "El correo electrónico ya está en uso" });
         }
         const newUser = new User({name, email, password});
         newUser.password = await newUser.encryptPassword(password);
