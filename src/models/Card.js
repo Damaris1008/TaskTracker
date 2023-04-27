@@ -20,6 +20,9 @@ const cardSchema = new Schema({
         type: String,
         required: false,
         trim: true
+    },
+    user: {
+        type: String
     }
 }, {
     timestamps: true,
