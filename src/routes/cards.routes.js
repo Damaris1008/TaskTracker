@@ -193,7 +193,8 @@ router.put("/api/cards/edit/:id", validateToken, async (req, res) => {
     if (errors.length > 0) {
         res.status(400).json(errors);
     } else {
-        const updatedCard = await Card.findByIdAndUpdate(req.params.id, { title, description, status, priority });
+        await Card.findByIdAndUpdate(req.params.id, { title, description, status, priority });
+        const updatedCard =  await Card.findById(req.params.id).lean();
         res.status(201).json(updatedCard);
     }
 });
