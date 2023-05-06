@@ -1,5 +1,5 @@
-import { Router } from "express";
-import Card from "../models/Card";
+const { Router } = require("express");
+const Card = require("../models/Card");
 
 const router = Router();
 const { isAuthenticated } = require('../helpers/auth');
@@ -210,4 +210,4 @@ router.delete("/api/cards/delete/:id", validateToken, async (req, res) => {
     }
 });
 
-export default router;
+module.exports = router;

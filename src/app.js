@@ -1,17 +1,17 @@
-import express from "express";
-import {create} from "express-handlebars";
+const express = require("express");
+const {create} = require("express-handlebars");
 
-import indexRoutes from "./routes/index.routes";
-import userRoutes from "./routes/users.routes";
-import cardRoutes from "./routes/cards.routes";
+const indexRoutes = require("./routes/index.routes");
+const userRoutes = require("./routes/users.routes");
+const cardRoutes = require("./routes/cards.routes");
 
-import path from "path";
-import morgan from "morgan";
-import methodOverride from "method-override";
-import session from "express-session";
-import flash from "connect-flash";
-import passport from "passport";
-import bodyParser from "body-parser";
+const path = require("path");
+const morgan = require("morgan");
+const methodOverride = require("method-override");
+const session = require("express-session");
+const flash = require("connect-flash");
+const passport = require("passport");
+const bodyParser = require("body-parser");
 
 const app = express();
 require('./database');
@@ -69,4 +69,4 @@ app.use(indexRoutes);
 app.use(cardRoutes);
 app.use(userRoutes);
 
-export default app;
+module.exports = app;

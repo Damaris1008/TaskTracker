@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose';
+const {Schema, model} = require('mongoose');
 
 const boardSchema = new Schema({
     name: {
@@ -11,4 +11,4 @@ const boardSchema = new Schema({
     versionKey: false
 })
 
-export default model('Board', boardSchema);
+module.exports = model('Board', boardSchema);

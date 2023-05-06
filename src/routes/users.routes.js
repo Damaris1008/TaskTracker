@@ -1,7 +1,7 @@
-import { Router } from "express";
-import flash from "connect-flash";
-import User from '../models/User';
-import bcrypt from "bcryptjs/dist/bcrypt";
+const { Router } = require("express");
+const flash = require("connect-flash");
+const User = require('../models/User');
+const bcrypt = require( "bcryptjs/dist/bcrypt");
 
 const passport = require('passport');
 const router = Router();
@@ -142,4 +142,4 @@ router.get("/api/users/logout", function(req, res, next) {
     });
 });
 
-export default router;
+module.exports = router;
