@@ -14,7 +14,7 @@ proyecto o simplemente tratando de mantener su vida diaria organizada. ¡Únete 
 
 ## ENLACE DE DESPLIEGUE
 
-https://tasktracker-7g86.onrender.com/
+https://tasktracker-7g86.onrender.com
 
 ## API
 ### User API
