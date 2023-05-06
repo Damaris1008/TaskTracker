@@ -1,4 +1,4 @@
-import { connect } from "mongoose";
+const { connect } = require("mongoose");
 require("dotenv").config();
 
 
