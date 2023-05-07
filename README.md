@@ -18,34 +18,34 @@ https://tasktracker-7g86.onrender.com
 
 ## API
 ### User API
-| URL                    | Descripción                         | Operación |
-| --------------------   | ----------------------------------- |---------- |
-| /api/users/signin      | Iniciar sesión          |POST|
-| /api/users/signup  | Registrar un nuevo usuario | POST|
-| /api/users/logout  |Cerrar sesión | GET|
+| URL                    | Descripción                         | Operación | Parámetros |
+| --------------------   | ----------------------------------- |---------- | ----------|
+| /api/users/signin      | Iniciar sesión          |POST| String email, String password |
+| /api/users/signup  | Registrar un nuevo usuario | POST| String name, String email, String password, String confirm_password |
+| /api/users/logout  |Cerrar sesión | GET |  |
 
 ### Card API
-| URL                    | Descripción                         |  Operación |
-| --------------------   | ----------------------------------- |---------- |
-| /api/cards | Obtener todas las tareas | GET|
-| /api/cards/add   | Añadir una nueva tarea        |POST|
-| /api/cards/edit/{id}  |Editar una tarea por su id |PUT|
-| /api/cards/delete/{id}  | Eliminar una tarea por su id |DELETE|
+| URL                    | Descripción                         |  Operación | Parámetros |
+| --------------------   | ----------------------------------- |---------- |----------|
+| /api/cards | Obtener todas las tareas | GET|  |
+| /api/cards/add   | Añadir una nueva tarea        |POST| String title, String description (opcional), String status, String priority |
+| /api/cards/edit/{id}  |Editar una tarea por su id |PUT| String title, String description (opcional), String status, String priority |
+| /api/cards/delete/{id}  | Eliminar una tarea por su id |DELETE| |
 
 
 	
 ## APLICACIÓN
 ### User
-| URL                    | Descripción                         | Operación |
-| --------------------   | ----------------------------------- |---------- |
-| /users/signin      | Iniciar sesión          |POST|
-| /users/signup  | Registrar un nuevo usuario | POST|
-| /users/logout  |Cerrar sesión | GET|
+| URL                    | Descripción                         | Operación | Parámetros |
+| --------------------   | ----------------------------------- |---------- | ----------|
+| /users/signin      | Iniciar sesión          |POST|  String email, String password |
+| /users/signup  | Registrar un nuevo usuario | POST|  String name, String email, String password, String confirm_password |
+| /users/logout  |Cerrar sesión | GET| |
 
 ### Card
-| URL                    | Descripción                         |  Operación |
-| --------------------   | ----------------------------------- |---------- |
-| /cards | Obtener todas las tareas | GET|
-| /cards/add   | Añadir una nueva tarea        |POST|
-| /cards/edit/{id}  |Editar una tarea por su id |PUT|
-| /cards/delete/{id}  | Eliminar una tarea por su id |DELETE|
+| URL                    | Descripción                         |  Operación |Parámetros |
+| --------------------   | ----------------------------------- |---------- |----------|
+| /cards | Obtener todas las tareas | GET| |
+| /cards/add   | Añadir una nueva tarea        |POST|  String title, String description (opcional), String status, String priority |
+| /cards/edit/{id}  |Editar una tarea por su id |PUT| String title, String description (opcional), String status, String priority |
+| /cards/delete/{id}  | Eliminar una tarea por su id |DELETE| |
