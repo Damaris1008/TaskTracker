@@ -14,7 +14,10 @@
         TaskTracker es la herramienta perfecta para cualquier persona que desee mantener sus tareas organizadas, ya sea que estés estudiando para un examen, administrando un 
         proyecto o simplemente tratando de mantener su vida diaria organizada. ¡Únete a TaskTracker hoy y comienza a mantener tus tareas bajo control!<br>
     </p>
+    {{#if user}}
+    {{else}}
     <div class="d-flex justify-content-center p-3" >
         <a href="/users/signin" class="btn btn-dark " style="width:180px !important;">Iniciar sesión</a>
     </div>
+    {{/if}}
 </div>
